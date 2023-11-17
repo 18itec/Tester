@@ -1,0 +1,45 @@
+<!-- extrato-conta-corrente.component.html -->
+<h1>Extrato de Conta Corrente</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Descrição</th>
+      <th>Valor</th>
+      <th>Tipo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lancamento of lancamentos">
+      <td>{{ lancamento.data | date }}</td>
+      <td>{{ lancamento.descricao }}</td>
+      <td>{{ lancamento.valor | currency }}</td>
+      <td>{{ lancamento.tipo }}</td>
+      <td>
+        <button (click)="editarLancamento(lancamento)">Editar</button>
+        <button (click)="cancelarLancamento(lancamento)">Cancelar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form (ngSubmit)="salvarLancamento()">
+  <label for="data">Data:</label>
+  <input type="date" id="data" [(ngModel)]="novoLancamento.data" required>
+
+  <label for="descricao">Descrição:</label>
+  <input type="text" id="descricao" [(ngModel)]="novoLancamento.descricao" required>
+
+  <label for="valor">Valor:</label>
+  <input type="text" id="valor" [(ngModel)]="novoLancamento.valor" required>
+
+  <label for="tipo">Tipo:</label>
+  <select id="tipo" [(ngModel)]="novoLancamento.tipo" required>
+    <option value="credito">Crédito</option>
+    <option value="debito">Débito</option>
+  </select>
+
+  <button type="submit">Salvar</button>
+</form>
